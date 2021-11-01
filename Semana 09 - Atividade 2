@@ -1,0 +1,59 @@
+#define POT A0
+#define BOTON 8
+#define LED_HORARIO 12
+#define LED_ANTI_HORARIO 13
+
+int valorPot = 0;
+int v = 0;
+int eB= 0;
+int P = 3;
+int E1 = 2;
+int E2 = 7;
+   
+void setup()  
+{  
+  //Define os pinos como saida
+  Serial.begin(9600);
+  pinMode(POT, INPUT);
+  pinMode(BOTON, INPUT_PULLUP);
+  pinMode(LED_HORARIO, OUTPUT); 
+  pinMode(LED_ANTI_HORARIO, OUTPUT); 
+  pinMode(P, OUTPUT); 
+  pinMode(E1, OUTPUT);  
+  pinMode(E2, OUTPUT);  
+}  
+   
+void loop()  
+{  
+  //Lê o valor de potenciometro
+  valorPot = analogRead (POT);
+  
+
+  //Converte o valor do potenciometro
+  v = map(valorPot ,0 ,1023, 0, 255);
+
+  //Lê o valor de buttonPin e armazena em estadoButton
+   eB = digitalRead (BOTON);
+  
+  //Define a velocidade de rotacao  
+  analogWrite(Potencia, velocidade);   
+  
+  //Aciona o motor no sentido horário 
+  if (eB== HIGH){
+   		analogWrite(LED_HORARIO, 250);
+   		analogWrite(LED_ANTI_HORARIO, 0);
+  		digitalWrite(E1, LOW);  
+ 		digitalWrite(E2, HIGH);  
+    
+  
+  }
+ 
+  //Aciona o motor no sentido anti-horário   
+  else{
+    	analogWrite(LED_ANTI_HORARIO, 250);
+    	analogWrite(LED_HORARIO, 0);
+ 		digitalWrite(E1, HIGH);  
+  		digitalWrite(E2, LOW); 
+  
+  }
+}
